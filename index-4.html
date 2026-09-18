@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tez Prakash — Campus EcoVision</title>
+<link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<!-- CSS yahan external file se link ho rahi hai -->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!--
+  ==========================================================
+  BACKGROUND VIDEO — ab ye HAR screen ke peeche dikhega
+  (static pehle frame ki tarah), lekin chalega (play hoga)
+  SIRF jab Autopilot par click hoga.
+  1. Apna gears wala video is HTML file ke SAME folder me daalo
+  2. Video ka naam "background.mp4" rakho — ya niche src wali
+     line me apna exact filename likh do
+  script.js ka showScreen() function ise play/pause karta hai.
+  ==========================================================
+-->
+<video id="bg-video" class="bg-video" loop muted playsinline preload="auto">
+  <source src="background.mp4" type="video/mp4">
+</video>
+
+<!-- ============ SCREEN 1: shuru me yahi dikhega ============ -->
+<section id="screen-mode" class="screen active">
+  <h1 class="title">Tez Prakash</h1>
+  <p class="subtitle">Campus EcoVision</p>
+  <div class="btn-group">
+    <button class="glass-btn" onclick="showScreen('camera')">📷 Use as camera</button>
+    <button class="glass-btn" onclick="showScreen('control-select')">🖥️ Use as screen</button>
+  </div>
+</section>
+
+<!-- ============ SCREEN 2: is phone ko camera ki tarah use karna ============ -->
+<section id="screen-camera" class="screen">
+  <h2>Camera mode</h2>
+  <video id="camera-feed" autoplay playsinline muted class="camera-preview"></video>
+  <p class="hint">Camera ki permission do. Ye feed aage backend ko jayega jab AI part connect hoga.</p>
+  <button class="glass-btn small" onclick="showScreen('mode')">← Back</button>
+</section>
+
+<!-- ============ SCREEN 3: manual ya autopilot chuno ============ -->
+<section id="screen-control-select" class="screen">
+  <h2>Control mode</h2>
+  <div class="btn-group">
+    <button class="glass-btn" onclick="showScreen('manual')">🎛️ Manual</button>
+    <button class="glass-btn" onclick="showScreen('autopilot')">🤖 Autopilot</button>
+  </div>
+  <button class="glass-btn small" onclick="showScreen('mode')">← Back</button>
+</section>
+
+<!-- ============ SCREEN 4: manual dashboard ============ -->
+<section id="screen-manual" class="screen">
+  <h2>Manual control</h2>
+  <div class="glass-panel">
+    <p>People count: <strong id="manual-count">--</strong></p>
+    <p>Outside temp: <strong id="manual-temp">--</strong>°C</p>
+    <p>Humidity: <strong id="manual-humidity">--</strong>%</p>
+  </div>
+  <div class="toggle-row">
+    <span>Motor 1</span>
+    <div class="toggle" id="toggle-motor1" role="switch" aria-checked="false" tabindex="0" onclick="toggleMotor(1)"><div class="thumb"></div></div>
+  </div>
+  <div class="toggle-row">
+    <span>Motor 2</span>
+    <div class="toggle" id="toggle-motor2" role="switch" aria-checked="false" tabindex="0" onclick="toggleMotor(2)"><div class="thumb"></div></div>
+  </div>
+  <button class="glass-btn small" onclick="showScreen('control-select')">← Back</button>
+</section>
+
+<!-- ============ SCREEN 5: autopilot ============ -->
+<section id="screen-autopilot" class="screen">
+
+  <div class="autopilot-overlay glass-panel">
+    <h2>Now you can sleep.</h2>
+    <p>We will take care of your energy and Earth.</p>
+    <div class="data-row">
+      <span>People: <strong id="auto-count">--</strong></span>
+      <span>Temp: <strong id="auto-temp">--</strong>°C</span>
+    </div>
+    <div class="data-row">
+      <span>Motor 1: <strong id="auto-motor1">--</strong></span>
+      <span>Motor 2: <strong id="auto-motor2">--</strong></span>
+    </div>
+  </div>
+  <button class="glass-btn small back-btn" onclick="showScreen('control-select')">← Back</button>
+</section>
+
+<!-- JS file link — body ke end me, taaki pehle HTML load ho -->
+<script src="script.js"></script>
+</body>
+</html>
